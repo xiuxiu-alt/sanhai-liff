@@ -374,6 +374,16 @@
         </label>
       </div>
     </div>
+
+    <div class="field">
+      <label style="font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:10px; display:block;">確認領取 <span class="req">*</span></label>
+      <label style="display:flex; align-items:flex-start; gap:12px; padding:14px; background:#e8f6fc; border:2px solid var(--sea); border-radius:10px; cursor:pointer;">
+        <input type="checkbox" id="receipt-confirm" style="width:20px; height:20px; margin-top:2px; accent-color:var(--sea); flex-shrink:0;" />
+        <span style="font-size:0.88rem; color:var(--text); line-height:1.6;">
+          我已於現場親自領取媽祖魚護身符，確認收到完好無缺。
+        </span>
+      </label>
+    </div>
   </div>
 
   <div style="padding: 0 16px 32px;">
@@ -385,14 +395,11 @@
 </div>
 
 <!-- Success -->
-<div id="success-screen">
-  <div class="icon">🎉</div>
-  <h2>登記完成！</h2>
-  <p id="success-msg">感謝您的登記，<br/>海保署珊海俱樂部將盡快為您處理。</p>
-  <div style="margin-top: 16px; padding: 12px 16px; background: #e8f6fc; border-radius: 10px; font-size: 0.8rem; color: #004f72; line-height: 1.6;">
-    📧 確認通知已寄送至您的電子郵件<br/>
-    請查收收件匣（或垃圾郵件夾）
-  </div>
+<div id="success-screen" style="padding: 32px 20px 48px;">
+  <div style="font-size: 3.5rem; margin-bottom: 12px;">🎉</div>
+  <h2 style="font-size: 1.2rem; color: var(--success); margin-bottom: 6px;">填寫完成！</h2>
+  <p id="success-subtitle" style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px;"></p>
+  <div id="success-detail" style="text-align: left; background: #f5f9fb; border-radius: 12px; padding: 16px 18px; font-size: 0.85rem; color: var(--text); line-height: 2;"></div>
 </div>
 
 <script>
@@ -490,11 +497,15 @@
       const name  = document.getElementById('name-offline').value.trim();
       const phone = document.getElementById('phone-offline').value.trim();
       const date  = document.querySelector('input[name="date"]:checked')?.value;
+      const receipt = document.getElementById('receipt-confirm').checked;
 
       if (!name || !phone || !date) {
         alert('請填寫所有必填欄位，並選擇兌換日期'); return;
       }
-      data = { ...data, name, phone, exchangeDate: date, displayName: lineDisplayName };
+      if (!receipt) {
+        alert('請勾選「確認領取」後再送出'); return;
+      }
+      data = { ...data, name, phone, exchangeDate: date, displayName: lineDisplayName, receiptConfirmed: '✅ 已確認領取' };
     }
 
     // 送出
@@ -513,11 +524,25 @@
 
       document.getElementById('form-screen').style.display = 'none';
       document.getElementById('success-screen').style.display = 'block';
-      const msgEl = document.getElementById('success-msg');
+      const subtitle = document.getElementById('success-subtitle');
+      const detail = document.getElementById('success-detail');
       if (isOnline) {
-        msgEl.innerHTML = '感謝您的登記！<br/>護身符將於確認後寄出，請注意查收。';
+        subtitle.textContent = '您的護身符寄送資料已成功送出。';
+        detail.innerHTML = `
+          🐬 填寫資訊已寄至您的電子信箱，請查收確認內容是否正確。<br/>
+          📱 如需更改收件地址或聯絡資訊，請透過 LINE 聯繫海小編協助處理。<br/>
+          📦 預計 4/10 出貨，出貨後將以 Email 及簡訊另行通知，請留意信箱與手機訊息。<br/><br/>
+          🙋 其他活動相關問題歡迎聯繫：<br/>
+          📌 LINE：<a href="https://line.me/R/ti/p/@729ftadz" style="color:var(--sea);">@729ftadz</a><br/>
+          也歡迎分享活動連結給朋友，一起來抽護身符！
+        `;
       } else {
-        msgEl.innerHTML = '感謝您的登記！<br/>請於指定日期攜帶此畫面至現場領取。';
+        subtitle.textContent = '您的護身符現場領取資料已成功送出。';
+        detail.innerHTML = `
+          🐬 填寫資訊已寄至您的電子信箱，請查收確認。<br/><br/>
+          持續關注海保署更多精彩活動，<br/>
+          也歡迎分享給朋友一起來抽護身符！
+        `;
       }
 
     } catch (err) {
