@@ -514,8 +514,8 @@
     btn.textContent = '送出中...';
 
     try {
-      // 用 GET + URL 參數送出，完全避開 CORS 問題
-      const params = new URLSearchParams({ data: JSON.stringify(data) });
+      // 用 GET + 逐欄參數送出，避開 CORS 問題
+      const params = new URLSearchParams(data);
       await fetch(GAS_URL + '?' + params.toString(), {
         method: 'GET',
         mode: 'no-cors'
