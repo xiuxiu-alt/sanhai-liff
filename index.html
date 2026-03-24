@@ -276,22 +276,29 @@
         </label>
       </div>
     </div>
+    <div style="margin-top: 12px; padding: 10px 14px; background: #fff8e1; border-left: 3px solid #c8922a; border-radius: 8px; font-size: 0.78rem; color: #7a5500; line-height: 1.7;">
+      ⚠️ <strong>注意事項</strong><br/>
+      • 每組 LINE ID 限兌換一次<br/>
+      • LINE ID 綁定中獎者手機帳號，分享無效<br/>
+      • 如有冒用他人帳號填寫，視同放棄中獎資格
+    </div>
   </div>
 
   <!-- 線上兌換區塊 -->
   <div class="card" id="block-online" style="display:none;">
     <div class="section-label">線上兌換資料</div>
-
-    <div class="field">
-      <label>LINE ID <span class="req">*</span></label>
-      <input type="text" id="line-id-online" class="locked" readonly placeholder="自動帶入" />
-      <div class="locked-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
-        LINE 身份已驗證，無法修改
-      </div>
+    <div style="background:#fff8e1;border:1.5px solid #f0c040;border-radius:10px;padding:12px 14px;margin-bottom:18px;font-size:0.82rem;color:#7a5c00;line-height:1.8;">
+      ⚠️ <strong>注意事項</strong><br/>
+      · 每組 LINE ID 限兌換一次<br/>
+      · LINE ID 綁定中獎者手機帳號，無法轉讓<br/>
+      · 分享連結給他人填寫視為無效
     </div>
+    <div class="field">
+      <label>LINE 顯示名稱 <span class="req">*</span></label>
+      <input type="text" id="display-name-online" class="locked" readonly placeholder="自動帶入" />
+      <div class="locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>LINE 身份已驗證，必須與您的 LINE 顯示名稱相符</div>
+    </div>
+    <input type="hidden" id="line-id-online" />
 
     <div class="field">
       <label>電子郵件 <span class="req">*</span></label>
@@ -319,20 +326,20 @@
     </div>
   </div>
 
-  <!-- 現場領取區塊 -->
   <div class="card" id="block-offline" style="display:none;">
     <div class="section-label">現場領取資料</div>
-
-    <div class="field">
-      <label>LINE ID <span class="req">*</span></label>
-      <input type="text" id="line-id-offline" class="locked" readonly placeholder="自動帶入" />
-      <div class="locked-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
-        LINE 身份已驗證，無法修改
-      </div>
+    <div style="background:#fff8e1;border:1.5px solid #f0c040;border-radius:10px;padding:12px 14px;margin-bottom:18px;font-size:0.82rem;color:#7a5c00;line-height:1.8;">
+      ⚠️ <strong>注意事項</strong><br/>
+      · 每組 LINE ID 限兌換一次<br/>
+      · LINE ID 綁定中獎者手機帳號，無法轉讓<br/>
+      · 分享連結給他人填寫視為無效
     </div>
+    <div class="field">
+      <label>LINE 顯示名稱 <span class="req">*</span></label>
+      <input type="text" id="display-name-offline" class="locked" readonly placeholder="自動帶入" />
+      <div class="locked-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>LINE 身份已驗證，必須與您的 LINE 顯示名稱相符</div>
+    </div>
+    <input type="hidden" id="line-id-offline" />
 
     <div class="field">
       <label>姓名 <span class="req">*</span></label>
@@ -342,6 +349,12 @@
     <div class="field">
       <label>電話 <span class="req">*</span></label>
       <input type="tel" id="phone-offline" placeholder="09XXXXXXXX" />
+    </div>
+
+    <div class="field">
+      <label>電子郵件 <span class="req">*</span></label>
+      <input type="email" id="email-offline" placeholder="your@email.com" />
+      <div style="font-size: 0.72rem; color: var(--text-light); margin-top: 4px;">用於寄送領獎確認通知</div>
     </div>
 
     <div class="field">
@@ -375,7 +388,11 @@
 <div id="success-screen">
   <div class="icon">🎉</div>
   <h2>登記完成！</h2>
-  <p>感謝您的登記，<br/>海保署珊海俱樂部將盡快為您處理。<br/><br/>若為現場領取，請於指定日期攜帶此畫面前往。</p>
+  <p id="success-msg">感謝您的登記，<br/>海保署珊海俱樂部將盡快為您處理。</p>
+  <div style="margin-top: 16px; padding: 12px 16px; background: #e8f6fc; border-radius: 10px; font-size: 0.8rem; color: #004f72; line-height: 1.6;">
+    📧 確認通知已寄送至您的電子郵件<br/>
+    請查收收件匣（或垃圾郵件夾）
+  </div>
 </div>
 
 <script>
@@ -406,6 +423,8 @@
       // 填入兩個 LINE ID 欄位並鎖死
       document.getElementById('line-id-online').value = lineUid;
       document.getElementById('line-id-offline').value = lineUid;
+      document.getElementById('display-name-online').value = lineDisplayName;
+      document.getElementById('display-name-offline').value = lineDisplayName;
 
       // 顯示表單
       document.getElementById('loading').style.display = 'none';
@@ -465,7 +484,7 @@
       if (!email || !name || !phone || !zip || !addr) {
         alert('請填寫所有必填欄位'); return;
       }
-      data = { ...data, email, name, phone, zipcode: zip, address: addr };
+      data = { ...data, email, name, phone, zipcode: zip, address: addr, displayName: lineDisplayName };
 
     } else {
       const name  = document.getElementById('name-offline').value.trim();
@@ -475,7 +494,7 @@
       if (!name || !phone || !date) {
         alert('請填寫所有必填欄位，並選擇兌換日期'); return;
       }
-      data = { ...data, name, phone, exchangeDate: date };
+      data = { ...data, name, phone, exchangeDate: date, displayName: lineDisplayName };
     }
 
     // 送出
@@ -494,6 +513,12 @@
 
       document.getElementById('form-screen').style.display = 'none';
       document.getElementById('success-screen').style.display = 'block';
+      const msgEl = document.getElementById('success-msg');
+      if (isOnline) {
+        msgEl.innerHTML = '感謝您的登記！<br/>護身符將於確認後寄出，請注意查收。';
+      } else {
+        msgEl.innerHTML = '感謝您的登記！<br/>請於指定日期攜帶此畫面至現場領取。';
+      }
 
     } catch (err) {
       alert('送出失敗，請稍後再試。');
