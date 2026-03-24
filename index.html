@@ -497,7 +497,7 @@
       const name  = document.getElementById('name-offline').value.trim();
       const phone = document.getElementById('phone-offline').value.trim();
       const date  = document.querySelector('input[name="date"]:checked')?.value;
-      const receipt = document.getElementById('receipt-confirm').checked;
+      const receipt = receiptChecked;
 
       if (!name || !phone || !date) {
         alert('請填寫所有必填欄位，並選擇兌換日期'); return;
@@ -549,6 +549,28 @@
       alert('送出失敗，請稍後再試。');
       btn.disabled = false;
       btn.textContent = '確認送出';
+    }
+  }
+
+  // ── 確認領取 toggle ──
+  let receiptChecked = false;
+  function toggleReceipt() {
+    receiptChecked = !receiptChecked;
+    const box = document.getElementById('receipt-box');
+    const check = document.getElementById('receipt-check');
+    if (receiptChecked) {
+      box.style.borderColor = 'var(--sea)';
+      box.style.background = '#c8f0ff';
+      check.style.background = 'var(--sea)';
+      check.style.borderColor = 'var(--sea)';
+      check.textContent = '✓';
+      check.style.color = 'white';
+    } else {
+      box.style.borderColor = '#d0e8f0';
+      box.style.background = '#e8f6fc';
+      check.style.background = 'white';
+      check.style.borderColor = '#aaccdd';
+      check.textContent = '';
     }
   }
 
