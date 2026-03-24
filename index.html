@@ -375,14 +375,12 @@
       </div>
     </div>
 
-    <div class="field">
-      <label style="font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:10px; display:block;">確認領取 <span class="req">*</span></label>
-      <label style="display:flex; align-items:flex-start; gap:12px; padding:14px; background:#e8f6fc; border:2px solid var(--sea); border-radius:10px; cursor:pointer;">
-        <input type="checkbox" id="receipt-confirm" style="width:20px; height:20px; margin-top:2px; accent-color:var(--sea); flex-shrink:0;" />
-        <span style="font-size:0.88rem; color:var(--text); line-height:1.6;">
-          我已於現場親自領取媽祖魚護身符，確認收到完好無缺。
-        </span>
-      </label>
+    <div style="margin-bottom:18px;">
+      <div style="font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:10px;">確認領取 <span style="color:var(--sea);">*</span></div>
+      <div onclick="toggleReceipt()" id="receipt-box" style="display:flex; align-items:flex-start; gap:14px; padding:16px; background:#e8f6fc; border:2px solid #d0e8f0; border-radius:10px; cursor:pointer; user-select:none; -webkit-user-select:none;">
+        <div id="receipt-check" style="width:22px; height:22px; min-width:22px; border:2px solid #aaccdd; border-radius:5px; background:white; display:flex; align-items:center; justify-content:center; font-size:15px; margin-top:1px; font-weight:bold; color:white;"></div>
+        <span style="font-size:0.88rem; color:var(--text); line-height:1.6;">我已於現場親自領取媽祖魚護身符，確認收到完好無缺。</span>
+      </div>
     </div>
   </div>
 
