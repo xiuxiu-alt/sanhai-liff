@@ -410,6 +410,7 @@
 
   let lineUid = '';
   let lineDisplayName = '';
+  let receiptChecked = false;
 
   // ── 初始化 LIFF ──
   async function initLiff() {
@@ -550,7 +551,6 @@
   }
 
   // ── 確認領取 toggle ──
-  let receiptChecked = false;
   function toggleReceipt() {
     receiptChecked = !receiptChecked;
     const box = document.getElementById('receipt-box');
