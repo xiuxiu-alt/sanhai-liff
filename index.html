@@ -514,13 +514,12 @@
     btn.textContent = '送出中...';
 
     try {
-      await fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(data)
+      // 用 GET + URL 參數送出，完全避開 CORS 問題
+      const params = new URLSearchParams({ data: JSON.stringify(data) });
+      await fetch(GAS_URL + '?' + params.toString(), {
+        method: 'GET',
+        mode: 'no-cors'
       });
-      // no-cors 模式下無法讀取回應，直接顯示成功畫面
 
       document.getElementById('form-screen').style.display = 'none';
       document.getElementById('success-screen').style.display = 'block';
