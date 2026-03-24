@@ -105,7 +105,7 @@
     }
     .field label .req { color: var(--sea); margin-left: 2px; }
 
-    .field input, .field select, .field textarea {
+    .field input:not([type="checkbox"]):not([type="radio"]), .field select, .field textarea {
       width: 100%;
       padding: 12px 14px;
       border: 1.5px solid var(--border);
@@ -118,7 +118,7 @@
       outline: none;
       -webkit-appearance: none;
     }
-    .field input:focus, .field select:focus {
+    .field input:not([type="checkbox"]):focus, .field select:focus {
       border-color: var(--sea);
       box-shadow: 0 0 0 3px rgba(0,119,168,0.12);
     }
@@ -514,13 +514,13 @@
     btn.textContent = '送出中...';
 
     try {
-      const res = await fetch(GAS_URL, {
+      await fetch(GAS_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(data)
       });
-      const result = await res.json();
-      if (result.status !== 'ok') throw new Error(result.message);
+      // no-cors 模式下無法讀取回應，直接顯示成功畫面
 
       document.getElementById('form-screen').style.display = 'none';
       document.getElementById('success-screen').style.display = 'block';
