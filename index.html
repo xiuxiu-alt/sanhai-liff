@@ -490,16 +490,17 @@
     } else {
       const name  = document.getElementById('name-offline').value.trim();
       const phone = document.getElementById('phone-offline').value.trim();
+      const email = document.getElementById('email-offline').value.trim();
       const date  = document.querySelector('input[name="date"]:checked')?.value;
       const receipt = receiptChecked;
 
-      if (!name || !phone || !date) {
+      if (!name || !phone || !email || !date) {
         alert('請填寫所有必填欄位，並選擇兌換日期'); return;
       }
       if (!receipt) {
         alert('請勾選「確認領取」後再送出'); return;
       }
-      data = { ...data, name, phone, exchangeDate: date, displayName: lineDisplayName, receiptConfirmed: '✅ 已確認領取' };
+      data = { ...data, name, phone, email, exchangeDate: date, displayName: lineDisplayName, receiptConfirmed: '✅ 已確認領取' };
     }
 
     // 送出
